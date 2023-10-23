@@ -1,11 +1,20 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"log"
+	"github.com/gin-gonic/gin"
+	"github.com/kbergstrom78/Swatchify/backend/database"
+)
 
 func main() {
+	db, err := database.Connect()
+	if err != nil {
+		log.Fatalf("Could not connect to the database: %v", err)
+	}
+
+	_ = db
+
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.String(200, "Hello, World!")
-	})
+	// set up routes
 	r.Run(":8080")
 }
